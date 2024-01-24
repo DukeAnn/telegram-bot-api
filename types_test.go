@@ -341,12 +341,38 @@ var (
 	_ Chattable = UnbanChatSenderChatConfig{}
 	_ Chattable = UnpinChatMessageConfig{}
 	_ Chattable = UpdateConfig{}
+	_ Chattable = SetMessageReactionConfig{}
 	_ Chattable = UserProfilePhotosConfig{}
 	_ Chattable = VenueConfig{}
 	_ Chattable = VideoConfig{}
 	_ Chattable = VideoNoteConfig{}
 	_ Chattable = VoiceConfig{}
 	_ Chattable = WebhookConfig{}
+	_ Chattable = CreateForumTopicConfig{}
+	_ Chattable = EditForumTopicConfig{}
+	_ Chattable = CloseForumTopicConfig{}
+	_ Chattable = ReopenForumTopicConfig{}
+	_ Chattable = DeleteForumTopicConfig{}
+	_ Chattable = UnpinAllForumTopicMessagesConfig{}
+	_ Chattable = GetForumTopicIconStickersConfig{}
+	_ Chattable = EditGeneralForumTopicConfig{}
+	_ Chattable = CloseGeneralForumTopicConfig{}
+	_ Chattable = ReopenGeneralForumTopicConfig{}
+	_ Chattable = HideGeneralForumTopicConfig{}
+	_ Chattable = UnhideGeneralForumTopicConfig{}
+	_ Chattable = UnpinAllGeneralForumTopicMessagesConfig{}
+	_ Chattable = SetCustomEmojiStickerSetThumbnailConfig{}
+	_ Chattable = SetStickerSetTitleConfig{}
+	_ Chattable = DeleteStickerSetConfig{}
+	_ Chattable = SetStickerEmojiListConfig{}
+	_ Chattable = SetStickerKeywordsConfig{}
+	_ Chattable = SetStickerMaskPositionConfig{}
+	_ Chattable = GetMyDescriptionConfig{}
+	_ Chattable = SetMyDescriptionConfig{}
+	_ Chattable = GetMyShortDescriptionConfig{}
+	_ Chattable = SetMyShortDescriptionConfig{}
+	_ Chattable = GetMyNameConfig{}
+	_ Chattable = SetMyNameConfig{}
 )
 
 // Ensure all Fileable types are correct.
