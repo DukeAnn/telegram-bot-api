@@ -472,10 +472,10 @@ func (bot *BotAPI) GetUpdatesChanWithJsonRaw(config UpdateConfig, updatesChan <-
 				return
 			default:
 			}
-			var updates []Update
+			var update Update
 
 			if resp, ok := <-updatesChan; ok {
-				err := json.Unmarshal(resp, &updates)
+				err := json.Unmarshal(resp, &update)
 				if err != nil {
 					log.Println(err)
 					log.Println("Failed to get updates, retrying in 3 seconds...")
@@ -487,11 +487,9 @@ func (bot *BotAPI) GetUpdatesChanWithJsonRaw(config UpdateConfig, updatesChan <-
 				close(ch)
 				return
 			}
-			for _, update := range updates {
-				if update.UpdateID >= config.Offset {
-					config.Offset = update.UpdateID + 1
-					ch <- update
-				}
+			if update.UpdateID >= config.Offset {
+				config.Offset = update.UpdateID + 1
+				ch <- update
 			}
 		}
 	}()
