@@ -460,6 +460,45 @@ func (bot *BotAPI) GetUpdatesChan(config UpdateConfig) UpdatesChannel {
 	return ch
 }
 
+// GetUpdatesChanWithJsonRaw starts and returns a channel for getting updates.
+func (bot *BotAPI) GetUpdatesChanWithJsonRaw(config UpdateConfig, updatesChan <-chan json.RawMessage) UpdatesChannel {
+	ch := make(chan Update, bot.Buffer)
+
+	go func() {
+		for {
+			select {
+			case <-bot.shutdownChannel:
+				close(ch)
+				return
+			default:
+			}
+			var updates []Update
+
+			if resp, ok := <-updatesChan; ok {
+				err := json.Unmarshal(resp, &updates)
+				if err != nil {
+					log.Println(err)
+					log.Println("Failed to get updates, retrying in 3 seconds...")
+					time.Sleep(time.Second * 3)
+
+					continue
+				}
+			} else {
+				close(ch)
+				return
+			}
+			for _, update := range updates {
+				if update.UpdateID >= config.Offset {
+					config.Offset = update.UpdateID + 1
+					ch <- update
+				}
+			}
+		}
+	}()
+
+	return ch
+}
+
 // StopReceivingUpdates stops the go routine which receives updates
 func (bot *BotAPI) StopReceivingUpdates() {
 	if bot.Debug {
